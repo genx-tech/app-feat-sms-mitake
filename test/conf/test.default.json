@@ -1,0 +1,11 @@
+{
+    "timezone": "Australia/Sydney",
+    "featureRegistry": {
+        "mitake": "src/index"
+    },
+    "mitake": {
+        "accountSid": "",
+        "authToken": "",
+        "from": ""
+    }
+}
