@@ -1,11 +1,12 @@
 {
-    "timezone": "Australia/Sydney",
+    "timezone": "Taiwan/Taipei",
     "featureRegistry": {
         "mitake": "src/index"
     },
     "mitake": {
-        "accountSid": "",
-        "authToken": "",
+        "username": "",
+        "password": "",
+        "domain": "",
         "from": ""
     }
 }
