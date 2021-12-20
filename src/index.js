@@ -89,8 +89,7 @@ module.exports = {
                         });
                         const encodingPostIn = { Encoding_PostIn: "UTF8" };
                         const parsedBody = parsedToList.join("\r\n");
-                        res = await client.post(sendSmsUrl).query(authQuery).query(encodingPostIn).pipe(parsedBody);
-                        console.log('res: ', res);
+                        res = await client.post(sendSmsUrl).query(authQuery).query(encodingPostIn).send(parsedBody);
                     }
                     else {
                         const encodedBody = { smbody: body };
@@ -100,16 +99,14 @@ module.exports = {
                     
                     const result = res?.text || '';
                     const info = {};
-
                     const userList = result.split(/\[[0-9]+\]/).filter(text => text!== '');
                     const results = userList.map(user => {
                         const userDetail = user.split("\r\n").filter(text => text!== '');
                         const msgid = (userDetail.find(res => res.includes('msgid')))?.replace('msgid=', '');
                         const statuscode = (userDetail.find(res => res.includes('statuscode')))?.replace('statuscode=', '');
-                        const AccountPoint = (userDetail.find(res => res.includes('AccountPoint')))?.replace('AccountPoint=', '');
+                        const AccountPoint = ((result.split("\r\n").filter(text => text!== '')).find(res => res.includes('AccountPoint')))?.replace('AccountPoint=', '');
                         return {msgid, statuscode, AccountPoint}
                     });
-
                     const errorcode = (userList.find(res => res.includes('statuscode')))?.replace('statuscode=', '');
                     const error = (userList.find(res => res.includes('Error')))?.replace('Error=', '');
 
@@ -119,7 +116,6 @@ module.exports = {
                     if (errorcode && error) {
                         info.errorMessage = { statuscode: errorcode, errorMessage: error };
                     }
-
                     return info;
                 } catch (error) {
                     throw new ExternalServiceError(

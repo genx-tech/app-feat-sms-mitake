@@ -13,7 +13,7 @@ testSuite(
                 should.equal(result.errorMessage, undefined);
             });
         });
-        await suite.testCase("send single sms test", async () => {                 
+        await suite.testCase("send sms test", async () => {                 
             await suite.startWorker_(async (app) => {
                 const body = "這是簡訊測試，this is sms testing.";
                 const singleSms = { 
@@ -43,17 +43,16 @@ testSuite(
                 const mitake = app.getService('mitake');
                 should.exist(mitake);
 
-                // const singleResult = await mitake.smsSend_(singleSms, body);
-                // console.log('singleResult: ', singleResult);
-                // should.exist(singleResult);
-                // should.exist(singleResult.dateCreated);
-                // should.equal(singleResult.errorMessage, undefined)
+                // sending single sms
+                const singleResult = await mitake.smsSend_(singleSms, body);
+                should.exist(singleResult);
+                should.exist(singleResult.dateCreated);
+                should.equal(singleResult.errorMessage, undefined)
 
+                // sending multiple sms in once
                 const multiResult = await mitake.smsSend_(multipleSms, body);
-                console.log('multiResult: ', multiResult);
                 should.exist(multiResult);
                 should.exist(multiResult.dateCreated);
-                should.
                 should.equal(multiResult.errorMessage, undefined)
             });
         });
