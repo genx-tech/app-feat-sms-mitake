@@ -44,13 +44,13 @@ testSuite(
                 should.exist(mitake);
 
                 // sending single sms
-                const singleResult = await mitake.smsSend_(singleSms, body);
+                const singleResult = await mitake.sendSms_(singleSms, body);
                 should.exist(singleResult);
                 should.exist(singleResult.dateCreated);
                 should.equal(singleResult.errorMessage, undefined)
 
                 // sending multiple sms in once
-                const multiResult = await mitake.smsSend_(multipleSms, body);
+                const multiResult = await mitake.sendSms_(multipleSms, body);
                 should.exist(multiResult);
                 should.exist(multiResult.dateCreated);
                 should.equal(multiResult.errorMessage, undefined)

@@ -75,7 +75,7 @@ module.exports = {
                     );
                 }
             },
-            smsSend_: async (to, body) => {
+            sendSms_: async (to, body) => {
                 try {
                     const sendMultiple = Array.isArray(to);
                     const apiPath = sendMultiple ? '/api/mtk/SmBulkSend' : '/api/mtk/SmSend';
